@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { deleteRestaurantFromAPI, getRestaurantsFromAPI } from "./api";
+import { deleteRestaurantFromAPI, getRestaurantsFromAPI, updateRestaurantFromAPI } from "./api";
 import { restaurant } from "../../shared/types";
 import "./Restaurants.scss";
 import AddRestaurantForm from "./AddRestaurantForm";
+import UpdateRestaurantForm from "./UpdateRestaurantForm";
 
 function Restaurants() {
 	const [restaurantsList, setRestaurantsList] = useState<restaurant[]>([]);
+	const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | null>(null);
 
 	useEffect(() => {
 		async function getRestaurants() {
@@ -36,6 +38,17 @@ function Restaurants() {
 			console.log(error);
 		}
 	};
+
+	const handleUpdateRestaurant = async (restaurantId: string) => {
+		setSelectedRestaurantId(restaurantId);
+	};
+
+	const handleUpdateFormClose = () => {
+		setSelectedRestaurantId(null);
+	};
+
+	const updateFormVisible = selectedRestaurantId !== null;
+	const selectedRestaurant = restaurantsList.find((r) => r._id === selectedRestaurantId);
 
 	return (
 		<div className='restaurants-page-container'>
@@ -77,12 +90,25 @@ function Restaurants() {
 								<td>
 									<button onClick={() => handleDeleteRestaurant(restaurant._id)}>Delete</button>
 								</td>
+								<td>
+									<button onClick={() => handleUpdateRestaurant(restaurant._id)}>Update</button>
+								</td>
 							</tr>
 						))}
 					</tbody>
 				</table>
 			</div>
 			<AddRestaurantForm onRestaurantAdded={handleRestaurantAdded} />
+			{updateFormVisible && (
+				<UpdateRestaurantForm
+					onRestaurantAdded={() => {
+						handleUpdateFormClose();
+						handleRestaurantAdded();
+					}}
+					restaurantId={selectedRestaurantId}
+					initialData={selectedRestaurant}
+				/>
+			)}
 		</div>
 	);
 }

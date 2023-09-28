@@ -1,0 +1,5 @@
+@import "../../shared/mixin.scss";
+
+.update-restaurant-form-container{
+    @include form-styles;
+}
