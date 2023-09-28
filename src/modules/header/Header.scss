@@ -1,0 +1,23 @@
+.header-container {
+	z-index: 1;
+	background-color: white;
+	position: sticky;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 20px;
+
+	.selected-route {
+		color: black;
+		text-decoration: underline;
+		text-decoration-color: #de9200e5;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 5px;
+	}
+
+	.route-item {
+		color: black;
+		text-decoration: none;
+	}
+}
