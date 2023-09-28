@@ -6,21 +6,29 @@ import AddRestaurantForm from "./AddRestaurantForm";
 
 function Restaurants() {
 	const [restaurantsList, setRestaurantsList] = useState<restaurant[]>([]);
-	const [filters, setFilters] = useState({
-		category: "All",
-	});
 
 	useEffect(() => {
 		async function getRestaurants() {
 			try {
-				const result = await getRestaurantsFromAPI(filters);
+				const result = await getRestaurantsFromAPI();
 				setRestaurantsList(result.data);
 			} catch (error: unknown) {
 				console.log(error);
 			}
 		}
 		getRestaurants();
-	}, [filters]);
+	}, []);
+
+	const handleRestaurantAdded = async () => {
+		try {
+			const result = await getRestaurantsFromAPI();
+			setRestaurantsList(result.data);
+			console.log(result.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div className='restaurants-page-container'>
 			<div className='restaurants-table-container'>
@@ -63,7 +71,7 @@ function Restaurants() {
 					</tbody>
 				</table>
 			</div>
-			<AddRestaurantForm />
+			<AddRestaurantForm onRestaurantAdded={handleRestaurantAdded} />
 		</div>
 	);
 }

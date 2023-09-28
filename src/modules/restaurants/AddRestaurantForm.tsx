@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./AddRestaurantForm.scss";
+import { addRestaurantFromAPI, getRestaurantsFromAPI } from "./api";
+import { restaurant } from "../../shared/types";
 
-function AddRestaurantForm() {
+function AddRestaurantForm({ onRestaurantAdded }: any) {
 	const [newRestaurant, setNewRestaurant] = useState({
 		name: "",
 		image: "",
 		popularity: 0,
 		address: "",
-		openFrom: "",
-		openTo: "",
+		from: "",
+		to: "",
 		openingDate: "",
 		averagePrice: 0,
-		chefName: "",
+		distance: 0,
+		chef: "",
 		dishes: [],
 	});
+
+	useEffect(() => {
+		setNewRestaurant({
+			name: "",
+			image: "",
+			popularity: 0,
+			address: "",
+			from: "",
+			to: "",
+			openingDate: "",
+			averagePrice: 0,
+			distance: 0,
+			chef: "",
+			dishes: [],
+		});
+	}, []);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -23,21 +42,15 @@ function AddRestaurantForm() {
 		});
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		try {
+			await addRestaurantFromAPI(newRestaurant);
+			onRestaurantAdded();
+		} catch (error) {
+			console.log(error);
+		}
 		console.log("New restaurant data:", newRestaurant);
-		setNewRestaurant({
-			name: "",
-			image: "",
-			popularity: 0,
-			address: "",
-			openFrom: "",
-			openTo: "",
-			openingDate: "",
-			averagePrice: 0,
-			chefName: "",
-			dishes: [],
-		});
 	};
 
 	return (
@@ -98,10 +111,10 @@ function AddRestaurantForm() {
 					<label>Open From:</label>
 					<input
 						type='text'
-						id='openFrom'
-						name='openFrom'
+						id='from'
+						name='from'
 						placeholder='Open From'
-						value={newRestaurant.openFrom}
+						value={newRestaurant.from}
 						onChange={handleInputChange}
 						required
 					/>
@@ -110,10 +123,10 @@ function AddRestaurantForm() {
 					<label>Open To:</label>
 					<input
 						type='text'
-						id='openTo'
-						name='openTo'
+						id='to'
+						name='to'
 						placeholder='Open To'
-						value={newRestaurant.openTo}
+						value={newRestaurant.to}
 						onChange={handleInputChange}
 						required
 					/>
@@ -146,25 +159,25 @@ function AddRestaurantForm() {
 					<label>Chef Name:</label>
 					<input
 						type='text'
-						id='chefName'
-						name='chefName'
+						id='chef'
+						name='chef'
 						placeholder='Chef Name'
-						value={newRestaurant.chefName}
+						value={newRestaurant.chef}
 						onChange={handleInputChange}
 						required
 					/>
 				</div>
-				<div className='form-group'>
+				{/* <div className='form-group'>
 					<label>List of Dishes:</label>
 					<textarea
 						id='dishes'
 						name='dishes'
 						placeholder='List of Dishes (comma-separated)'
 						value={newRestaurant.dishes}
-						// onChange={handleInputChange}
+						onChange={handleInputChange}
 						required
 					/>
-				</div>
+				</div> */}
 				<button type='submit'>Add Restaurant</button>
 			</form>
 		</div>
