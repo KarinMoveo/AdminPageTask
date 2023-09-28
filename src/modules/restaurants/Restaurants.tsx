@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRestaurantsFromAPI } from "./api";
+import { deleteRestaurantFromAPI, getRestaurantsFromAPI } from "./api";
 import { restaurant } from "../../shared/types";
 import "./Restaurants.scss";
 import AddRestaurantForm from "./AddRestaurantForm";
@@ -23,7 +23,15 @@ function Restaurants() {
 		try {
 			const result = await getRestaurantsFromAPI();
 			setRestaurantsList(result.data);
-			console.log(result.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleDeleteRestaurant = async (restaurantId: string) => {
+		try {
+			await deleteRestaurantFromAPI(restaurantId);
+			setRestaurantsList((prevList) => prevList.filter((r) => r._id !== restaurantId));
 		} catch (error) {
 			console.log(error);
 		}
@@ -65,6 +73,9 @@ function Restaurants() {
 									{restaurant.dishes.map((dish) => (
 										<p key={dish.name}>{dish.name}</p>
 									))}
+								</td>
+								<td>
+									<button onClick={() => handleDeleteRestaurant(restaurant._id)}>Delete</button>
 								</td>
 							</tr>
 						))}

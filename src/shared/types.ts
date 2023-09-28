@@ -9,6 +9,7 @@ export interface chef{
 }
 
 export interface restaurant{
+    _id: string;
     name: string;
     chef: chef;
     rating: string;

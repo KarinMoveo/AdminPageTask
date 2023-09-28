@@ -10,3 +10,8 @@ export async function addRestaurantFromAPI(newRestaurant : any) {
 	const result = await axios.post(`http://localhost:5000/restaurants`, newRestaurant);
 	return result;
 }
+
+export async function deleteRestaurantFromAPI(restaurantId : string) {
+	const result = await axios.delete(`http://localhost:5000/restaurants/${restaurantId}`);
+	return result;
+}
