@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { updateRestaurantFromAPI } from "./api";
-import "./UpdateRestaurantForm.scss";
+import { addRestaurantFromAPI, getRestaurantsFromAPI, updateRestaurantFromAPI } from "./api";
+import { restaurant } from "../../shared/types";
+import "./RestaurantForm.scss";
 
-function UpdateRestaurantForm({ onRestaurantAdded, restaurantId }: any) {
+function RestaurantForm({ onRestaurantAdded, mode, restaurantId }: any) {
 	const [newRestaurant, setNewRestaurant] = useState({
 		name: "",
 		image: "",
@@ -43,18 +44,52 @@ function UpdateRestaurantForm({ onRestaurantAdded, restaurantId }: any) {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		try {
-			await updateRestaurantFromAPI(restaurantId, newRestaurant);
-			onRestaurantAdded();
-		} catch (error) {
-			console.log(error);
+		if (mode === "Add") {
+			try {
+				await addRestaurantFromAPI(newRestaurant);
+				onRestaurantAdded();
+				setNewRestaurant({
+					name: "",
+					image: "",
+					popularity: 0,
+					address: "",
+					from: "",
+					to: "",
+					openingDate: "",
+					averagePrice: 0,
+					distance: 0,
+					chef: "",
+					dishes: [],
+				});
+			} catch (error) {
+				console.log(error);
+			}
+		} else if (mode === "Update") {
+			try {
+				await updateRestaurantFromAPI(restaurantId, newRestaurant);
+				onRestaurantAdded();
+				setNewRestaurant({
+					name: "",
+					image: "",
+					popularity: 0,
+					address: "",
+					from: "",
+					to: "",
+					openingDate: "",
+					averagePrice: 0,
+					distance: 0,
+					chef: "",
+					dishes: [],
+				});
+			} catch (error) {
+				console.log(error);
+			}
 		}
-		console.log("New restaurant data:", newRestaurant);
 	};
 
 	return (
-		<div className='update-restaurant-form-container'>
-			<h2>Update Restaurant:</h2>
+		<div className='restaurant-form-container'>
+			<h2>{mode} Restaurant:</h2>
 			<form onSubmit={handleSubmit}>
 				<div className='form-group'>
 					<label>Restaurant Name:</label>
@@ -177,10 +212,10 @@ function UpdateRestaurantForm({ onRestaurantAdded, restaurantId }: any) {
 						required
 					/>
 				</div> */}
-				<button type='submit'>Update Restaurant</button>
+				<button type='submit'>{mode} Restaurant</button>
 			</form>
 		</div>
 	);
 }
 
-export default UpdateRestaurantForm;
+export default RestaurantForm;

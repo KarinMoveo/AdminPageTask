@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { deleteRestaurantFromAPI, getRestaurantsFromAPI, updateRestaurantFromAPI } from "./api";
 import { restaurant } from "../../shared/types";
 import "./Restaurants.scss";
-import AddRestaurantForm from "./AddRestaurantForm";
-import UpdateRestaurantForm from "./UpdateRestaurantForm";
+import RestaurantForm from "./RestaurantForm";
 
 function Restaurants() {
 	const [restaurantsList, setRestaurantsList] = useState<restaurant[]>([]);
@@ -98,17 +97,20 @@ function Restaurants() {
 					</tbody>
 				</table>
 			</div>
-			<AddRestaurantForm onRestaurantAdded={handleRestaurantAdded} />
-			{updateFormVisible && (
-				<UpdateRestaurantForm
-					onRestaurantAdded={() => {
-						handleUpdateFormClose();
-						handleRestaurantAdded();
-					}}
-					restaurantId={selectedRestaurantId}
-					initialData={selectedRestaurant}
-				/>
-			)}
+			<div className='restaurants-forms-row'>
+				<RestaurantForm onRestaurantAdded={handleRestaurantAdded} mode='Add' />
+				{updateFormVisible && (
+					<RestaurantForm
+						onRestaurantAdded={() => {
+							handleUpdateFormClose();
+							handleRestaurantAdded();
+						}}
+						restaurantId={selectedRestaurantId}
+						mode='Update'
+						// initialData={selectedRestaurant}
+					/>
+				)}
+			</div>
 		</div>
 	);
 }

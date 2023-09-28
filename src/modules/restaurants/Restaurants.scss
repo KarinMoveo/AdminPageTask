@@ -3,3 +3,9 @@
 .restaurants-table-container{
     @include table-container;
 }
+
+.restaurants-forms-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
