@@ -107,7 +107,7 @@ function Restaurants() {
 						}}
 						restaurantId={selectedRestaurantId}
 						mode='Update'
-						// initialData={selectedRestaurant}
+						initialData={selectedRestaurant}
 					/>
 				)}
 			</div>

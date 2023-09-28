@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { addRestaurantFromAPI, getRestaurantsFromAPI, updateRestaurantFromAPI } from "./api";
-import { restaurant } from "../../shared/types";
+import { addRestaurantFromAPI, updateRestaurantFromAPI } from "./api";
 import "./RestaurantForm.scss";
 
-function RestaurantForm({ onRestaurantAdded, mode, restaurantId }: any) {
+function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData }: any) {
 	const [newRestaurant, setNewRestaurant] = useState({
 		name: "",
 		image: "",
@@ -19,20 +18,24 @@ function RestaurantForm({ onRestaurantAdded, mode, restaurantId }: any) {
 	});
 
 	useEffect(() => {
-		setNewRestaurant({
-			name: "",
-			image: "",
-			popularity: 0,
-			address: "",
-			from: "",
-			to: "",
-			openingDate: "",
-			averagePrice: 0,
-			distance: 0,
-			chef: "",
-			dishes: [],
-		});
-	}, []);
+		if (mode === "Update" && initialData) {
+			setNewRestaurant(initialData);
+		} else {
+			setNewRestaurant({
+				name: "",
+				image: "",
+				popularity: 0,
+				address: "",
+				from: "",
+				to: "",
+				openingDate: "",
+				averagePrice: 0,
+				distance: 0,
+				chef: "",
+				dishes: [],
+			});
+		}
+	}, [mode, initialData]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
