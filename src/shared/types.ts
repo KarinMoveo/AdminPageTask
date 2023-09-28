@@ -1,5 +1,5 @@
 export interface chef{
-    id: number,
+    _id: string,
     name: string;
     image: string;
     summary: string;
@@ -27,6 +27,7 @@ export interface restaurant{
 }
 
 export interface dish{
+    _id: string;
     name: string;
     image: string;
     ingredients: string;

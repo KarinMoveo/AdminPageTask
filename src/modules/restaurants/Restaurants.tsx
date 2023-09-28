@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { deleteRestaurantFromAPI, getRestaurantsFromAPI, updateRestaurantFromAPI } from "./api";
+import { deleteRestaurantFromAPI, getRestaurantsFromAPI } from "./api";
 import { restaurant } from "../../shared/types";
-import "./Restaurants.scss";
 import RestaurantForm from "./RestaurantForm";
+import "./Restaurants.scss";
 
 function Restaurants() {
 	const [restaurantsList, setRestaurantsList] = useState<restaurant[]>([]);
@@ -38,7 +38,7 @@ function Restaurants() {
 		}
 	};
 
-	const handleUpdateRestaurant = async (restaurantId: string) => {
+	const handleUpdateRestaurant = async (restaurantId: string, chefId: string) => {
 		setSelectedRestaurantId(restaurantId);
 	};
 
@@ -82,15 +82,19 @@ function Restaurants() {
 								<td>{restaurant.averagePrice}</td>
 								<td>{restaurant.chef.name}</td>
 								<td>
-									{restaurant.dishes.map((dish) => (
-										<p key={dish.name}>{dish.name}</p>
-									))}
+									{restaurant.dishes.length > 0 ? (
+										restaurant.dishes.map((dish) => <p key={dish.name}>{dish.name}</p>)
+									) : (
+										<p>No dishes available</p>
+									)}
 								</td>
 								<td>
 									<button onClick={() => handleDeleteRestaurant(restaurant._id)}>Delete</button>
 								</td>
 								<td>
-									<button onClick={() => handleUpdateRestaurant(restaurant._id)}>Update</button>
+									<button onClick={() => handleUpdateRestaurant(restaurant._id, restaurant.chef._id)}>
+										Update
+									</button>
 								</td>
 							</tr>
 						))}
@@ -106,6 +110,7 @@ function Restaurants() {
 							handleRestaurantAdded();
 						}}
 						restaurantId={selectedRestaurantId}
+						chefId={selectedRestaurant?.chef._id}
 						mode='Update'
 						initialData={selectedRestaurant}
 					/>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { addRestaurantFromAPI, updateRestaurantFromAPI } from "./api";
 import "./RestaurantForm.scss";
 
-function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData }: any) {
+function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData, chefId }: any) {
 	const [newRestaurant, setNewRestaurant] = useState({
 		name: "",
 		image: "",
@@ -38,6 +38,14 @@ function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData }: 
 	}, [mode, initialData]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setNewRestaurant({
+			...newRestaurant,
+			[name]: value,
+		});
+	};
+
+	const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
 		setNewRestaurant({
 			...newRestaurant,
@@ -193,28 +201,28 @@ function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData }: 
 					/>
 				</div>
 				<div className='form-group'>
-					<label>Chef Name:</label>
+					<label>Chef Id:</label>
 					<input
 						type='text'
 						id='chef'
 						name='chef'
-						placeholder='Chef Name'
-						value={newRestaurant.chef}
+						placeholder='Chef Id'
+						value={chefId}
 						onChange={handleInputChange}
 						required
 					/>
 				</div>
-				{/* <div className='form-group'>
-					<label>List of Dishes:</label>
+				<div className='form-group'>
+					<label>List of Dishes Id's:</label>
 					<textarea
 						id='dishes'
 						name='dishes'
-						placeholder='List of Dishes (comma-separated)'
+						placeholder='List of Dishes Ids(comma-separated)'
 						value={newRestaurant.dishes}
-						onChange={handleInputChange}
+						onChange={handleTextareaChange}
 						required
 					/>
-				</div> */}
+				</div>
 				<button type='submit'>{mode} Restaurant</button>
 			</form>
 		</div>
