@@ -1,0 +1,5 @@
+@import "../../shared/mixin.scss";
+
+.restaurants-table-container{
+    @include table-container;
+}
