@@ -26,6 +26,7 @@ export interface restaurant{
     distance: number;
 }
 
+
 export interface dish{
     _id: string;
     name: string;

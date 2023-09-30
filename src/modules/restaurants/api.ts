@@ -16,7 +16,7 @@ export async function deleteRestaurantFromAPI(restaurantId : string) {
 	return result;
 }
 
-export async function updateRestaurantFromAPI(restaurantId : string, restaurantUpdatedData : any) {
-	const result = await axios.put(`http://localhost:5000/restaurants/${restaurantId}`, restaurantUpdatedData);
+export async function updateRestaurantFromAPI(restaurantUpdatedData : any) {
+	const result = await axios.put(`http://localhost:5000/restaurants/${restaurantUpdatedData._id}`, restaurantUpdatedData);
 	return result;
 }

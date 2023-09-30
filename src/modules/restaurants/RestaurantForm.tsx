@@ -2,99 +2,53 @@ import { useEffect, useState } from "react";
 import { addRestaurantFromAPI, updateRestaurantFromAPI } from "./api";
 import "./RestaurantForm.scss";
 
-function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData, chefId }: any) {
-	const [newRestaurant, setNewRestaurant] = useState({
-		name: "",
-		image: "",
-		popularity: 0,
-		address: "",
-		from: "",
-		to: "",
-		openingDate: "",
-		averagePrice: 0,
-		distance: 0,
-		chef: "",
-		dishes: [],
-	});
+const initialState = {
+	name: "",
+	image: "",
+	popularity: 0,
+	address: "",
+	from: "",
+	to: "",
+	openingDate: "",
+	averagePrice: 0,
+	distance: 0,
+	chef: "",
+	dishes: "",
+};
+
+function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
+	const [newRestaurant, setNewRestaurant] = useState(initialState);
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
-			setNewRestaurant(initialData);
-		} else {
-			setNewRestaurant({
-				name: "",
-				image: "",
-				popularity: 0,
-				address: "",
-				from: "",
-				to: "",
-				openingDate: "",
-				averagePrice: 0,
-				distance: 0,
-				chef: "",
-				dishes: [],
-			});
+			const dishesIds = initialData.dishes.map((dish: any) => dish._id);
+			const dishesIdsField = dishesIds.join(",");
+
+			setNewRestaurant({ ...initialData, chef: initialData.chef._id, dishes: dishesIdsField });
 		}
 	}, [mode, initialData]);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
-		setNewRestaurant({
-			...newRestaurant,
-			[name]: value,
-		});
-	};
-
-	const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		const { name, value } = e.target;
-		setNewRestaurant({
-			...newRestaurant,
-			[name]: value,
-		});
+		setNewRestaurant({ ...newRestaurant, [name]: value });
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (mode === "Add") {
-			try {
-				await addRestaurantFromAPI(newRestaurant);
-				onRestaurantAdded();
-				setNewRestaurant({
-					name: "",
-					image: "",
-					popularity: 0,
-					address: "",
-					from: "",
-					to: "",
-					openingDate: "",
-					averagePrice: 0,
-					distance: 0,
-					chef: "",
-					dishes: [],
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		} else if (mode === "Update") {
-			try {
-				await updateRestaurantFromAPI(restaurantId, newRestaurant);
-				onRestaurantAdded();
-				setNewRestaurant({
-					name: "",
-					image: "",
-					popularity: 0,
-					address: "",
-					from: "",
-					to: "",
-					openingDate: "",
-					averagePrice: 0,
-					distance: 0,
-					chef: "",
-					dishes: [],
-				});
-			} catch (error) {
-				console.log(error);
-			}
+
+		const tempRestaurant = {
+			...newRestaurant,
+			dishes: newRestaurant.dishes.split(","),
+		};
+
+		const request = mode === "Add" ? addRestaurantFromAPI : updateRestaurantFromAPI;
+
+		try {
+			await request(tempRestaurant);
+			onRestaurantAdded();
+			setNewRestaurant(initialState);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -207,7 +161,7 @@ function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData, ch
 						id='chef'
 						name='chef'
 						placeholder='Chef Id'
-						value={chefId}
+						value={newRestaurant.chef}
 						onChange={handleInputChange}
 						required
 					/>
@@ -219,7 +173,7 @@ function RestaurantForm({ onRestaurantAdded, mode, restaurantId, initialData, ch
 						name='dishes'
 						placeholder='List of Dishes Ids(comma-separated)'
 						value={newRestaurant.dishes}
-						onChange={handleTextareaChange}
+						onChange={handleInputChange}
 						required
 					/>
 				</div>
