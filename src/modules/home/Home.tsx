@@ -3,7 +3,7 @@ import "./Home.scss";
 function Home() {
 	return (
 		<div className='home-container'>
-			<p>This is the home page</p>
+			<h1>Welcome To Epicure Admin Page 👋🏼</h1>
 		</div>
 	);
 }

@@ -7,19 +7,12 @@
 	overflow-x: auto;
 
 	th {
-		background-color: #333;
+		background-color: #de9200e5;
 		color: white;
 		padding: 10px;
 		text-align: left;
 	}
 
-	tr:nth-child(even) {
-		background-color: #f2f2f2;
-	}
-
-	tr:nth-child(odd) {
-		background-color: #ffffff;
-	}
 
 	td {
 		padding: 10px;
@@ -27,14 +20,14 @@
 	}
 
 	tr:hover {
-		background-color: #ccc;
+		background-color: #fcf9f1fc;
 	}
 }
 
 @mixin form-styles {
 	margin: 20px;
 	padding: 20px;
-	border: 1px solid #ccc;
+	border: 1px solid #de9200e5;
 	border-radius: 5px;
 	width: 20%;
 
@@ -58,13 +51,13 @@
 	textarea {
 		width: 50%;
 		padding: 10px;
-		border: 1px solid #ccc;
+		border: 1px solid #de9200e5;
 		border-radius: 5px;
 		font-size: 16px;
 	}
 
 	button[type="submit"] {
-		background-color: #007bff;
+		background-color: #de9200e5;
 		color: #fff;
 		padding: 10px 20px;
 		border: none;
@@ -74,7 +67,7 @@
 	}
 
 	button[type="submit"]:hover {
-		background-color: #0056b3;
+		background-color: #de9200e5;
 	}
 }
 
