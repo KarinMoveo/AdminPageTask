@@ -18,6 +18,7 @@ const initialState = {
 
 function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 	const [newRestaurant, setNewRestaurant] = useState(initialState);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
@@ -55,7 +56,9 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 			await request(tempRestaurant);
 			onRestaurantAdded();
 			setNewRestaurant(initialState);
-		} catch (error) {
+			setError("");
+		} catch (error: any) {
+			setError(error.response.data.message);
 			console.log(error);
 		}
 	};
@@ -186,6 +189,7 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 					/>
 				</div>
 				<button type='submit'>{mode} Restaurant</button>
+				{error && <p>{error}</p>}
 			</form>
 		</div>
 	);

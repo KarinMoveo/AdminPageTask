@@ -14,11 +14,12 @@ const initialState = {
 
 function ChefForm({ onChefAdded, mode, initialData }: any) {
 	const [newChef, setNewChef] = useState(initialState);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
-			const restaurants = initialData.restaurants.map((item: any) => item).join(",");
-			setNewChef({ ...initialData, restaurants: restaurants });
+			// const restaurants = initialData.restaurants.map((item: any) => item).join(",");
+			setNewChef({ ...initialData });
 		}
 	}, [mode, initialData]);
 
@@ -39,9 +40,11 @@ function ChefForm({ onChefAdded, mode, initialData }: any) {
 
 		try {
 			await request(tempChef);
-			onChefAdded();
 			setNewChef(initialState);
-		} catch (error) {
+			onChefAdded();
+			setError("");
+		} catch (error: any) {
+			setError(error.response.data.message);
 			console.log(error);
 		}
 	};
@@ -122,8 +125,8 @@ function ChefForm({ onChefAdded, mode, initialData }: any) {
 						// required
 					/>
 				</div>
-
-				<button type='submit'>{mode} Dish</button>
+				<button type='submit'>{mode} Chef</button>
+				{error && <p>{error}</p>}
 			</form>
 		</div>
 	);

@@ -16,6 +16,7 @@ const initialState = {
 
 function DishForm({ onDishAdded, mode, initialData }: any) {
 	const [newDish, setNewDish] = useState(initialState);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
@@ -48,7 +49,9 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 			await request(tempDish);
 			onDishAdded();
 			setNewDish(initialState);
-		} catch (error) {
+			setError("");
+		} catch (error: any) {
+			setError(error.response.data.message);
 			console.log(error);
 		}
 	};
@@ -166,6 +169,7 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 					/>
 				</div>
 				<button type='submit'>{mode} Dish</button>
+				{error && <p>{error}</p>}
 			</form>
 		</div>
 	);

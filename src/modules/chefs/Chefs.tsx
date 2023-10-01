@@ -99,10 +99,10 @@ function Chefs() {
 				</table>
 			</div>
 			<div className='restaurants-forms-row'>
-				<ChefsForm onRestaurantAdded={handleChefAdded} mode='Add' />
+				<ChefsForm onChefAdded={handleChefAdded} mode='Add' />
 				{updateFormVisible && (
 					<ChefsForm
-						onRestaurantAdded={() => {
+						onChefAdded={() => {
 							handleUpdateFormClose();
 							handleChefAdded();
 						}}
