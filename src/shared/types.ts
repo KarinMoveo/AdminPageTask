@@ -36,6 +36,6 @@ export interface dish{
     price: number;
     changes: string[];
     side: string[];
-    restaurant: string;
+    restaurant: restaurant;
     mealType: string[];
 }

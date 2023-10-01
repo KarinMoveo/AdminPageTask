@@ -5,7 +5,7 @@ import DishesForm from "./DishesForm";
 import "./Dishes.scss";
 
 function Dishes() {
-	const [dishesList, setDishesList] = useState<any[]>([]);
+	const [dishesList, setDishesList] = useState<dish[]>([]);
 	const [selectedDishId, setSelectedDishId] = useState<string | null>(null);
 
 	useEffect(() => {

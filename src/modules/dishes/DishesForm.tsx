@@ -5,7 +5,7 @@ import "./DishesForm.scss";
 const initialState = {
 	name: "",
 	image: "",
-	ingredients: 0,
+	ingredients: "",
 	icon: "",
 	price: 0,
 	side: "",
