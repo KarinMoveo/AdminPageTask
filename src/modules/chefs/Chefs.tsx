@@ -75,9 +75,14 @@ function Chefs() {
 								<td>{String(chef.isNew)}</td>
 								<td>
 									{chef.restaurants.length > 0 ? (
-										chef.restaurants.map((restaurant) => (
-											<p key={restaurant.name}>{restaurant.name}</p>
-										))
+										<p>
+											{chef.restaurants.map((restaurant, index) => (
+												<span key={restaurant.name}>
+													{index > 0 && ", "}
+													{restaurant.name}
+												</span>
+											))}
+										</p>
 									) : (
 										<p>No restaurants available</p>
 									)}

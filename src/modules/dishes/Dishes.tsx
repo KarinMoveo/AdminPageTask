@@ -62,7 +62,7 @@ function Dishes() {
 							<th>Dish Price</th>
 							<th>Dish Sides</th>
 							<th>Dish Changes</th>
-							<th>Dish Meal Type</th>
+							<th>Dish Meal Types</th>
 							<th>Dish Restaurant</th>
 						</tr>
 					</thead>
@@ -77,10 +77,31 @@ function Dishes() {
 								<td>
 									<img src={dish.icon} alt={dish.icon} className='dish-icon' />
 								</td>
-								<td>{dish.price}</td>
-								<td>{dish.side}</td>
-								<td>{dish.changes}</td>
-								<td>{dish.mealType}</td>
+								<td>{dish.price}₪</td>
+								<td>
+									{dish.side.map((dishSides, index) => (
+										<span>
+											{index > 0 && ", "}
+											{dishSides}
+										</span>
+									))}
+								</td>
+								<td>
+									{dish.changes.map((dishChanges, index) => (
+										<span>
+											{index > 0 && ", "}
+											{dishChanges}
+										</span>
+									))}
+								</td>
+								<td>
+									{dish.mealType.map((dishMealType, index) => (
+										<span>
+											{index > 0 && ", "}
+											{dishMealType}
+										</span>
+									))}
+								</td>
 								<td>{dish.restaurant?.name}</td>
 								<td>
 									<button onClick={() => handleDeleteDish(dish._id)}>Delete</button>

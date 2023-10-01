@@ -83,7 +83,14 @@ function Restaurants() {
 								<td>{restaurant.chef.name}</td>
 								<td>
 									{restaurant.dishes.length > 0 ? (
-										restaurant.dishes.map((dish) => <p key={dish.name}>{dish.name}</p>)
+										<p>
+											{restaurant.dishes.map((dish, index) => (
+												<span>
+													{index > 0 && ", "}
+													{dish.name}
+												</span>
+											))}
+										</p>
 									) : (
 										<p>No dishes available</p>
 									)}

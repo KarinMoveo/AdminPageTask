@@ -142,12 +142,12 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 					/>
 				</div>
 				<div className='form-group'>
-					<label>Dish Meal Type:</label>
+					<label>Dish Meal Types:</label>
 					<input
 						type='text'
 						id='mealType'
 						name='mealType'
-						placeholder='Dish Meal Type'
+						placeholder='Dish Meal Types'
 						value={newDish.mealType}
 						onChange={handleInputChange}
 						required
