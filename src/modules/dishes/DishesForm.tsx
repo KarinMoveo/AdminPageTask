@@ -20,11 +20,7 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
-			const sides = initialData.side.map((item: any) => item).join(",");
-			const changes = initialData.changes.map((item: any) => item).join(",");
-			const mealType = initialData.mealType.map((item: any) => item).join(",");
-
-			setNewDish({ ...initialData, side: sides, changes: changes, mealType: mealType });
+			setNewDish({ ...initialData, restaurant: initialData.restaurant._id });
 		}
 	}, [mode, initialData]);
 
@@ -38,9 +34,6 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 
 		const tempDish = {
 			...newDish,
-			side: newDish.side.split(","),
-			changes: newDish.changes.split(","),
-			mealType: newDish.mealType.split(","),
 		};
 
 		const request = mode === "Add" ? addDishFromAPI : updateDishFromAPI;

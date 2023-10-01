@@ -38,7 +38,7 @@ function Dishes() {
 		}
 	};
 
-	const handleUpdateDish = async (dishId: string) => {
+	const handleUpdateDish = async (dishId: string, restaurantId: string) => {
 		setSelectedDishId(dishId);
 	};
 
@@ -107,7 +107,9 @@ function Dishes() {
 									<button onClick={() => handleDeleteDish(dish._id)}>Delete</button>
 								</td>
 								<td>
-									<button onClick={() => handleUpdateDish(dish._id)}>Update</button>
+									<button onClick={() => handleUpdateDish(dish._id, dish.restaurant._id)}>
+										Update
+									</button>
 								</td>
 							</tr>
 						))}
@@ -115,10 +117,10 @@ function Dishes() {
 				</table>
 			</div>
 			<div className='restaurants-forms-row'>
-				<DishesForm onRestaurantAdded={handleDishAdded} mode='Add' />
+				<DishesForm onDishAdded={handleDishAdded} mode='Add' />
 				{updateFormVisible && (
 					<DishesForm
-						onRestaurantAdded={() => {
+						onDishAdded={() => {
 							handleUpdateFormClose();
 							handleDishAdded();
 						}}

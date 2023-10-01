@@ -38,7 +38,7 @@ function Chefs() {
 		}
 	};
 
-	const handleUpdateChef = async (chefId: string) => {
+	const handleUpdateChef = async (chefId: string, chefRestaurantsIds: string[]) => {
 		setSelectedChefId(chefId);
 	};
 
@@ -91,7 +91,16 @@ function Chefs() {
 									<button onClick={() => handleDeleteChef(chef._id)}>Delete</button>
 								</td>
 								<td>
-									<button onClick={() => handleUpdateChef(chef._id)}>Update</button>
+									<button
+										onClick={() =>
+											handleUpdateChef(
+												chef._id,
+												chef.restaurants.map((restaurant) => restaurant._id)
+											)
+										}
+									>
+										Update
+									</button>
 								</td>
 							</tr>
 						))}

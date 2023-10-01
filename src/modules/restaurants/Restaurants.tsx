@@ -79,7 +79,7 @@ function Restaurants() {
 								<td>{restaurant.from}</td>
 								<td>{restaurant.to}</td>
 								<td>{restaurant.openingDate}</td>
-								<td>{restaurant.averagePrice}</td>
+								<td>{restaurant.averagePrice}₪</td>
 								<td>{restaurant.chef.name}</td>
 								<td>
 									{restaurant.dishes.length > 0 ? (
