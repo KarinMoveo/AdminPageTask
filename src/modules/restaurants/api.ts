@@ -2,7 +2,7 @@ import axios from "axios";
 import { restaurant } from "../../shared/types";
 
 export async function getRestaurantsFromAPI() {
-	const result = await axios.get(`http://localhost:5000/restaurants/allRestaurants`);
+	const result = await axios.get(`http://localhost:5000/restaurants`);
 	return result;
 }
 

@@ -65,6 +65,7 @@ function Restaurants() {
 							<th>Average Price</th>
 							<th>Chef Name</th>
 							<th>List of Dishes</th>
+							<th>Distance</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -88,6 +89,7 @@ function Restaurants() {
 										<p>No dishes available</p>
 									)}
 								</td>
+								<td>{restaurant.distance}</td>
 								<td>
 									<button onClick={() => handleDeleteRestaurant(restaurant._id)}>Delete</button>
 								</td>

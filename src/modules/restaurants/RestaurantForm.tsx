@@ -11,7 +11,7 @@ const initialState = {
 	to: "",
 	openingDate: "",
 	averagePrice: 0,
-	distance: 0,
+	distance: 100,
 	chef: "",
 	dishes: "",
 };
@@ -30,7 +30,14 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
-		setNewRestaurant({ ...newRestaurant, [name]: value });
+
+		if (name === "openingDate" && value) {
+			const date = new Date(value);
+			const dateString = date.toISOString().split("T")[0];
+			setNewRestaurant({ ...newRestaurant, [name]: dateString });
+		} else {
+			setNewRestaurant({ ...newRestaurant, [name]: value });
+		}
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,6 +46,7 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 		const tempRestaurant = {
 			...newRestaurant,
 			dishes: newRestaurant.dishes.split(","),
+			openingDate: newRestaurant.openingDate,
 		};
 
 		const request = mode === "Add" ? addRestaurantFromAPI : updateRestaurantFromAPI;
