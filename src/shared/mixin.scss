@@ -77,3 +77,13 @@
 		background-color: #0056b3;
 	}
 }
+
+@mixin image {
+	width: 200px;
+	height: 200px;
+}
+
+@mixin icon {
+	width: 30px;
+	height: 30px;
+}

@@ -1,15 +1,19 @@
 @import "../../shared/mixin.scss";
 
-.restaurants-table-container{
+.dishes-table-container{
     @include table-container;
 }
 
-.restaurants-forms-row{
+.dishes-forms-row{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.restaurant-image{
-    @include image;
+.dish-image{
+   @include image;
 }
+
+.dish-icon{
+    @include icon;
+ }

@@ -72,7 +72,7 @@ function Restaurants() {
 							<tr key={restaurant.name}>
 								<td>{restaurant.name}</td>
 								<td>
-									<img src={restaurant.image} alt={restaurant.name} />
+									<img src={restaurant.image} alt={restaurant.name} className='restaurant-image' />
 								</td>
 								<td>{restaurant.popularity}</td>
 								<td>{restaurant.address}</td>
