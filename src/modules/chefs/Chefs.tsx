@@ -8,26 +8,17 @@ function Chefs() {
 	const [chefsList, setChefsList] = useState<chef[]>([]);
 	const [selectedChefId, setSelectedChefId] = useState<string | null>(null);
 
-	useEffect(() => {
-		async function getChefs() {
-			try {
-				const result = await getChefsFromAPI();
-				setChefsList(result.data);
-			} catch (error: unknown) {
-				console.log(error);
-			}
-		}
-		getChefs();
-	}, []);
-
-	const handleChefAdded = async () => {
+	async function getChefs() {
 		try {
 			const result = await getChefsFromAPI();
 			setChefsList(result.data);
-		} catch (error) {
+		} catch (error: unknown) {
 			console.log(error);
 		}
-	};
+	}
+	useEffect(() => {
+		getChefs();
+	}, []);
 
 	const handleDeleteChef = async (chefId: string) => {
 		try {
@@ -38,7 +29,7 @@ function Chefs() {
 		}
 	};
 
-	const handleUpdateChef = async (chefId: string, chefRestaurantsIds: string[]) => {
+	const handleUpdateChef = async (chefId: string) => {
 		setSelectedChefId(chefId);
 	};
 
@@ -91,16 +82,7 @@ function Chefs() {
 									<button onClick={() => handleDeleteChef(chef._id)}>Delete</button>
 								</td>
 								<td>
-									<button
-										onClick={() =>
-											handleUpdateChef(
-												chef._id,
-												chef.restaurants.map((restaurant) => restaurant._id)
-											)
-										}
-									>
-										Update
-									</button>
+									<button onClick={() => handleUpdateChef(chef._id)}>Update</button>
 								</td>
 							</tr>
 						))}
@@ -108,12 +90,12 @@ function Chefs() {
 				</table>
 			</div>
 			<div className='restaurants-forms-row'>
-				<ChefsForm onChefAdded={handleChefAdded} mode='Add' />
+				<ChefsForm onChefAdded={getChefs} mode='Add' />
 				{updateFormVisible && (
 					<ChefsForm
 						onChefAdded={() => {
 							handleUpdateFormClose();
-							handleChefAdded();
+							getChefs();
 						}}
 						mode='Update'
 						initialData={selectedChef}

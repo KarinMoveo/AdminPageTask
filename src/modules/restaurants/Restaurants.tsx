@@ -38,7 +38,7 @@ function Restaurants() {
 		}
 	};
 
-	const handleUpdateRestaurant = async (restaurantId: string, chefId: string, dishesId: string[]) => {
+	const handleUpdateRestaurant = async (restaurantId: string) => {
 		setSelectedRestaurantId(restaurantId);
 	};
 
@@ -99,17 +99,7 @@ function Restaurants() {
 									<button onClick={() => handleDeleteRestaurant(restaurant._id)}>Delete</button>
 								</td>
 								<td>
-									<button
-										onClick={() =>
-											handleUpdateRestaurant(
-												restaurant._id,
-												restaurant.chef._id,
-												restaurant.dishes.map((dish) => dish._id)
-											)
-										}
-									>
-										Update
-									</button>
+									<button onClick={() => handleUpdateRestaurant(restaurant._id)}>Update</button>
 								</td>
 							</tr>
 						))}

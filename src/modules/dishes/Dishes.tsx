@@ -38,7 +38,7 @@ function Dishes() {
 		}
 	};
 
-	const handleUpdateDish = async (dishId: string, restaurantId: string) => {
+	const handleUpdateDish = async (dishId: string) => {
 		setSelectedDishId(dishId);
 	};
 
@@ -107,9 +107,7 @@ function Dishes() {
 									<button onClick={() => handleDeleteDish(dish._id)}>Delete</button>
 								</td>
 								<td>
-									<button onClick={() => handleUpdateDish(dish._id, dish.restaurant._id)}>
-										Update
-									</button>
+									<button onClick={() => handleUpdateDish(dish._id)}>Update</button>
 								</td>
 							</tr>
 						))}

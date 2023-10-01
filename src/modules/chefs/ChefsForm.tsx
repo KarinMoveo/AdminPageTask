@@ -9,7 +9,7 @@ const initialState = {
 	summary: "",
 	popularity: 0,
 	isNew: "",
-	restaurants: [],
+	restaurants: "",
 };
 
 function ChefForm({ onChefAdded, mode, initialData }: any) {
@@ -18,9 +18,8 @@ function ChefForm({ onChefAdded, mode, initialData }: any) {
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
-			const restaurantsIds = initialData.restaurants.map((restaurant: any) => restaurant._id);
-			const restaurantsIdsField = restaurantsIds.join(",");
-			setNewChef({ ...initialData, restaurants: restaurantsIdsField });
+			const restaurantsIdsFields = initialData.restaurants.map((restaurant: any) => restaurant._id).join(",");
+			setNewChef({ ...initialData, restaurants: restaurantsIdsFields });
 		}
 	}, [mode, initialData]);
 
@@ -34,6 +33,7 @@ function ChefForm({ onChefAdded, mode, initialData }: any) {
 
 		const tempChef = {
 			...newChef,
+			restaurants: newChef.restaurants.split(","),
 		};
 
 		const request = mode === "Add" ? addChefFromAPI : updateChefFromAPI;
