@@ -8,26 +8,17 @@ function Restaurants() {
 	const [restaurantsList, setRestaurantsList] = useState<restaurant[]>([]);
 	const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | null>(null);
 
-	useEffect(() => {
-		async function getRestaurants() {
-			try {
-				const result = await getRestaurantsFromAPI();
-				setRestaurantsList(result.data);
-			} catch (error: unknown) {
-				console.log(error);
-			}
-		}
-		getRestaurants();
-	}, []);
-
-	const handleRestaurantAdded = async () => {
+	async function getRestaurants() {
 		try {
 			const result = await getRestaurantsFromAPI();
 			setRestaurantsList(result.data);
-		} catch (error) {
+		} catch (error: unknown) {
 			console.log(error);
 		}
-	};
+	}
+	useEffect(() => {
+		getRestaurants();
+	}, []);
 
 	const handleDeleteRestaurant = async (restaurantId: string) => {
 		try {
@@ -107,12 +98,12 @@ function Restaurants() {
 				</table>
 			</div>
 			<div className='restaurants-forms-row'>
-				<RestaurantForm onRestaurantAdded={handleRestaurantAdded} mode='Add' />
+				<RestaurantForm onRestaurantAdded={getRestaurants} mode='Add' />
 				{updateFormVisible && (
 					<RestaurantForm
 						onRestaurantAdded={() => {
 							handleUpdateFormClose();
-							handleRestaurantAdded();
+							getRestaurants();
 						}}
 						mode='Update'
 						initialData={selectedRestaurant}

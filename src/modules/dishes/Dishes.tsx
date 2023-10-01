@@ -8,26 +8,17 @@ function Dishes() {
 	const [dishesList, setDishesList] = useState<dish[]>([]);
 	const [selectedDishId, setSelectedDishId] = useState<string | null>(null);
 
-	useEffect(() => {
-		async function getDishes() {
-			try {
-				const result = await getDishesFromAPI();
-				setDishesList(result.data);
-			} catch (error: unknown) {
-				console.log(error);
-			}
-		}
-		getDishes();
-	}, []);
-
-	const handleDishAdded = async () => {
+	async function getDishes() {
 		try {
 			const result = await getDishesFromAPI();
 			setDishesList(result.data);
-		} catch (error) {
+		} catch (error: unknown) {
 			console.log(error);
 		}
-	};
+	}
+	useEffect(() => {
+		getDishes();
+	}, []);
 
 	const handleDeleteDish = async (dishId: string) => {
 		try {
@@ -115,12 +106,12 @@ function Dishes() {
 				</table>
 			</div>
 			<div className='restaurants-forms-row'>
-				<DishesForm onDishAdded={handleDishAdded} mode='Add' />
+				<DishesForm onDishAdded={getDishes} mode='Add' />
 				{updateFormVisible && (
 					<DishesForm
 						onDishAdded={() => {
 							handleUpdateFormClose();
-							handleDishAdded();
+							getDishes();
 						}}
 						mode='Update'
 						initialData={selectedDish}
