@@ -4,6 +4,9 @@ import Header from "./modules/header/Header";
 import Restaurants from "./modules/restaurants/Restaurants";
 import Dishes from "./modules/dishes/Dishes";
 import Chefs from "./modules/chefs/Chefs";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:5000/";
 
 function App() {
 	return (
