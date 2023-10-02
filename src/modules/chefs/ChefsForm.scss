@@ -1,0 +1,5 @@
+@import "../../shared/mixin.scss";
+
+.chef-form-container{
+    @include form-styles;
+}

@@ -1,0 +1,19 @@
+@import "../../shared/mixin.scss";
+
+.dishes-table-container{
+    @include table-container;
+}
+
+.dishes-forms-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.dish-image{
+   @include image;
+}
+
+.dish-icon{
+    @include icon;
+ }

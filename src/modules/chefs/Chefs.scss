@@ -1,0 +1,16 @@
+@import "../../shared/mixin.scss";
+
+.chefs-table-container{
+    @include table-container;
+}
+
+.chefs-forms-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.chef-image{
+   @include image;
+}
+

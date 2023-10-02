@@ -1,0 +1,5 @@
+@import "../../shared/mixin.scss";
+
+.dish-form-container{
+    @include form-styles;
+}
