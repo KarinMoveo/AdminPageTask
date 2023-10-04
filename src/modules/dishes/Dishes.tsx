@@ -93,7 +93,13 @@ function Dishes() {
 										</span>
 									))}
 								</td>
-								<td>{dish.restaurant?.name}</td>
+								<td>
+									{dish.restaurant?.name === undefined ? (
+										<p>No restaurant found</p>
+									) : (
+										<p>{dish.restaurant?.name}</p>
+									)}
+								</td>
 								<td>
 									<button onClick={() => handleDeleteDish(dish._id)}>Delete</button>
 								</td>

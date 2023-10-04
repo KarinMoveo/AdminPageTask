@@ -71,7 +71,13 @@ function Restaurants() {
 								<td>{restaurant.to}</td>
 								<td>{restaurant.openingDate}</td>
 								<td>{restaurant.averagePrice}₪</td>
-								<td>{restaurant.chef.name}</td>
+								<td>
+									{restaurant.chef?.name === undefined ? (
+										<p>No chef found</p>
+									) : (
+										<p>{restaurant.chef?.name}</p>
+									)}
+								</td>
 								<td>
 									{restaurant.dishes.length > 0 ? (
 										<p>

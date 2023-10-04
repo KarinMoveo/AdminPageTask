@@ -31,9 +31,17 @@ function ChefForm({ onChefAdded, mode, initialData }: any) {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		let restaurantsArray: string[] = [];
+		if (newChef.restaurants) {
+			restaurantsArray = newChef.restaurants
+				.split(",")
+				.map((dishId) => dishId.trim())
+				.filter(Boolean);
+		}
+
 		const tempChef = {
 			...newChef,
-			restaurants: newChef.restaurants.split(","),
+			restaurants: restaurantsArray,
 		};
 
 		const request = mode === "Add" ? addChefFromAPI : updateChefFromAPI;
