@@ -22,8 +22,7 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
-			const dishesIds = initialData.dishes.map((dish: any) => dish._id);
-			const dishesIdsField = dishesIds.join(",");
+			const dishesIdsField = initialData.dishes.map((dish: any) => dish._id).join(",");
 
 			setNewRestaurant({ ...initialData, chef: initialData.chef._id, dishes: dishesIdsField });
 		}

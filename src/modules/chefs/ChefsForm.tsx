@@ -35,7 +35,7 @@ function ChefForm({ onChefAdded, mode, initialData }: any) {
 		if (newChef.restaurants) {
 			restaurantsArray = newChef.restaurants
 				.split(",")
-				.map((dishId) => dishId.trim())
+				.map((restaurantId) => restaurantId.trim())
 				.filter(Boolean);
 		}
 
