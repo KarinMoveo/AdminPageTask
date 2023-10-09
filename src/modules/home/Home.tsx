@@ -36,7 +36,7 @@ function Home() {
 
 	return (
 		<div className='home-container'>
-			<p className='sign-in-title'>Hello dear admin 👋🏼 please SIGN IN</p>
+			<p className='sign-in-title'>Hello dear admin 👋🏼 Please login:</p>
 			<form className='sign-in-form'>
 				<div className='inputs-container'>
 					<label className='sign-in-label'>Email address</label>
