@@ -1,6 +1,52 @@
-.home-container{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.home-container {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.sign-in-title {
+		font-size: 24px;
+	}
+
+	.sign-in-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+
+		.inputs-container {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.sign-in-input {
+			border: none;
+			border-bottom: 1px solid #ccc;
+			outline: none;
+			width: 50%;
+			margin-top: 6px;
+			margin-bottom: 25px;
+		}
+	}
+
+	.login-button {
+		padding: 10px;
+		cursor: pointer;
+		margin-bottom: 10px;
+		font-size: 18px;
+		text-decoration: none;
+		text-align: center;
+		background-color: #de9200e5;
+		color: white;
+		width: 30%;
+	}
+
+	.error-message {
+		color: red;
+	}
 }

@@ -6,12 +6,15 @@ import Dishes from "./modules/dishes/Dishes";
 import Chefs from "./modules/chefs/Chefs";
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000/";
 
 function App() {
+	const isConnected = localStorage.getItem("isConnected");
+
 	return (
 		<Router>
-			<Header />
+			{!!isConnected && <Header />}
 			<Routes>
 				<Route path='/' Component={Home} />
 				<Route path='/restaurants' Component={Restaurants} />

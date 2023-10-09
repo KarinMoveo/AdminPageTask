@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import "./Header.scss";
 
 const routes = [
-	{ to: "/", text: "EPICURE" },
 	{ to: "/restaurants", text: "Restaurants" },
 	{ to: "/dishes", text: "Dishes" },
 	{ to: "/chefs", text: "Chefs" },
