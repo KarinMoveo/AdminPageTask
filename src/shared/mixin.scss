@@ -5,6 +5,8 @@
 	font-family: Arial, sans-serif;
 	overflow-y: auto;
 	overflow-x: auto;
+	font-family: Arial, sans-serif;
+
 
 	th {
 		background-color: #de9200e5;
@@ -12,7 +14,6 @@
 		padding: 10px;
 		text-align: left;
 	}
-
 
 	td {
 		padding: 10px;
@@ -22,6 +23,16 @@
 	tr:hover {
 		background-color: #fcf9f1fc;
 	}
+	@media (max-width: 768px) {
+		width: 100%;
+		display: block;
+		th,
+		td {
+			width: 100%;
+			display: block;
+		}
+		margin-bottom: 10px;
+	}
 }
 
 @mixin form-styles {
@@ -30,6 +41,8 @@
 	border: 1px solid #de9200e5;
 	border-radius: 5px;
 	width: 20%;
+	font-family: Arial, sans-serif;
+
 
 	h2 {
 		font-size: 20px;

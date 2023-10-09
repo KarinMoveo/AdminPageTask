@@ -11,7 +11,7 @@ const initialState = {
 	to: "",
 	openingDate: "",
 	averagePrice: 0,
-	distance: 100,
+	distance: 1,
 	chef: "",
 	dishes: "",
 };
@@ -22,8 +22,7 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 
 	useEffect(() => {
 		if (mode === "Update" && initialData) {
-			const dishesIds = initialData.dishes.map((dish: any) => dish._id);
-			const dishesIdsField = dishesIds.join(",");
+			const dishesIdsField = initialData.dishes.map((dish: any) => dish._id).join(",");
 
 			setNewRestaurant({ ...initialData, chef: initialData.chef._id, dishes: dishesIdsField });
 		}
@@ -44,9 +43,17 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		let dishesArray: string[] = [];
+		if (newRestaurant.dishes) {
+			dishesArray = newRestaurant.dishes
+				.split(",")
+				.map((dishId) => dishId.trim())
+				.filter(Boolean);
+		}
+
 		const tempRestaurant = {
 			...newRestaurant,
-			dishes: newRestaurant.dishes.split(","),
+			dishes: dishesArray,
 			openingDate: newRestaurant.openingDate,
 		};
 
@@ -162,6 +169,8 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 						placeholder='Average Price'
 						value={newRestaurant.averagePrice}
 						onChange={handleInputChange}
+						min={12}
+						max={357}
 						required
 					/>
 				</div>
@@ -185,7 +194,7 @@ function RestaurantForm({ onRestaurantAdded, mode, initialData }: any) {
 						placeholder='List of Dishes Ids(comma-separated)'
 						value={newRestaurant.dishes}
 						onChange={handleInputChange}
-						required
+						// required
 					/>
 				</div>
 				<button type='submit'>{mode} Restaurant</button>

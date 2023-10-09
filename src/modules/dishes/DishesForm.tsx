@@ -23,9 +23,11 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 			const mealTypesField = initialData.mealType.map((mealTypeItem: any) => mealTypeItem).join(",");
 			const sideField = initialData.side.map((sideItem: any) => sideItem).join(",");
 			const changesField = initialData.changes.map((changesItem: any) => changesItem).join(",");
+			const restaurantId = initialData.restaurant ? initialData.restaurant._id : null;
+
 			setNewDish({
 				...initialData,
-				restaurant: initialData.restaurant._id,
+				restaurant: restaurantId,
 				mealType: mealTypesField,
 				side: sideField,
 				changes: changesField,
@@ -46,6 +48,7 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 			side: newDish.side.split(","),
 			changes: newDish.changes.split(","),
 			mealType: newDish.mealType.split(","),
+			restaurant: newDish.restaurant ? newDish.restaurant.trim() : null,
 		};
 
 		const request = mode === "Add" ? addDishFromAPI : updateDishFromAPI;
@@ -170,7 +173,7 @@ function DishForm({ onDishAdded, mode, initialData }: any) {
 						placeholder='Restaurant Id'
 						value={newDish.restaurant}
 						onChange={handleInputChange}
-						required
+						// required
 					/>
 				</div>
 				<button type='submit'>{mode} Dish</button>

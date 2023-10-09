@@ -12,11 +12,11 @@ export async function addDishFromAPI(newDish : any) {
 }
 
 export async function deleteDishFromAPI(dishId : string) {
-	const result = await axios.delete(`${dishId}`);
+	const result = await axios.delete(`dishes/${dishId}`);
 	return result;
 }
 
 export async function updateDishFromAPI(dishUpdatedData : any) {
-	const result = await axios.put(`${dishUpdatedData._id}`, dishUpdatedData);
+	const result = await axios.put(`dishes/${dishUpdatedData._id}`, dishUpdatedData);
 	return result;
 }
